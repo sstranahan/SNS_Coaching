@@ -1,0 +1,1 @@
+(()=>{const e=document.getElementById("myButton"),t=document.getElementById("message"),n=document.getElementById("message2"),o=document.getElementById("idInput");e.addEventListener("click",function(){t.textContent="Your entered button id is: "+o.value,t.style.color="blue",n.style.color="green",n.textContent="Generate React Components Here"})})();

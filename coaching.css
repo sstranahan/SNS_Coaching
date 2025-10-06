@@ -1,0 +1,56 @@
+  /* Some global color constants */
+  :root {
+  --champagne: rgba(244, 234, 225, 0.9);
+  --blush: rgba(239, 188, 189, 0.85);
+  --sage: rgba(182, 200, 174, 0.85);
+  --gold: rgba(230, 195, 107, 0.85);
+  --ivory: rgba(255, 250, 243, 0.9);
+  --dusk: rgba(95, 98, 91, 0.7);
+  --moonlight: rgba(249, 255, 250, 0.9);
+
+  --ivoryBG: rgba(255, 250, 243, 1);
+  --champagneBG: rgba(244, 234, 225, 1);
+    --sageBG: rgba(182, 200, 174, 0.0);
+    --goldBG: rgba(230, 195, 107, 0.5);
+    
+    --ivoryBGHalfAlpha: rgba(255, 250, 243, 0.5);
+}
+  
+  
+    /* Container sits behind site content and covers full viewport */
+  #ethereal-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;              /* keep it behind everything */
+    pointer-events: none;     /* don't block clicks */
+    overflow: hidden;
+    background: radial-gradient(circle at 20% 20%, var(--ivoryBG) 0%, var(--champagneBG) 60%);
+  }
+
+  .ethereal-blob {
+    position: absolute;
+    width: var(--blob-size, 38vmax);  /* responsive default */
+    height: var(--blob-size, 38vmax);
+    border-radius: 50%;
+    mix-blend-mode: multiply;   /* luminous blending */
+    filter: blur(60px);
+    will-change: transform, opacity, filter, left, top;
+    opacity: 0.8;
+  }
+
+  /* Optional subtle vignette overlay for depth */
+  #ethereal-bg::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, var(--sageBG) 40%, var(--ivoryBGHalfAlpha) 100%);
+    pointer-events:none;
+  }
+
+  /* Make sure hero blocks with background are still visible on small screens */
+  @media (max-width: 640px) {
+    :root { --blob-size: 60vmax; } /* larger so it still feels full on mobile */
+  }
+
+
+

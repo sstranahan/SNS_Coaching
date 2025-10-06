@@ -1,0 +1,560 @@
+<script type="module" defer>
+
+///******************************************************/
+//////////////// SAFE & SOUND COACHING //////////////////
+///******************************************************/ 
+
+// Motion.js / vanilla JS animation code for SnS Couching Website
+// Packaged for squarespace injection
+
+// https://motion.dev/
+// https://www.safeandsoundcoachingco.com
+// PW: Anj*******%
+
+// Stephen Stranahan
+// October 2025
+     
+///////////// CONSTANTS /////////////
+// Color palate for Safe & Sound Coaching - WIP
+const safeAndSoundColors = {
+  champagne: "rgba(244, 234, 225, 0.9)",  // soft, creamy base background
+  blush: "rgba(239, 188, 189, 0.85)",     // gentle rose warmth
+  sage: "rgba(182, 200, 174, 0.85)",      // grounding green tone
+  gold: "rgba(230, 195, 107, 0.85)",      // subtle luminous accent
+  ivory: "rgba(255, 250, 243, 0.9)",      // near-white highlight
+  dusk: "rgba(95, 98, 91, 0.7)",          // grounding neutral (text/contrast)
+  moonlight: "rgba(219, 216, 210, 0.7)",  // ethereal glow layer
+};	
+
+const darkOrbColors = {
+  deepSage: "rgba(87, 104, 87, 0.55)",       // earthy green shadow, grounding
+  rosewood: "rgba(120, 77, 77, 0.5)",        // warm blush depth, ties to heart energy
+  amberSmoke: "rgba(130, 102, 50, 0.45)",    // muted golden brown glow, subtle warmth
+  lunarTaupe: "rgba(92, 85, 77, 0.5)",       // smoky neutral, brings balance
+  nightOlive: "rgba(68, 78, 70, 0.55)"       // dark sage tone with a mystical undertone
+};
+
+// safeAndSoundColors.champagne
+// safeAndSoundColors.blush
+// safeAndSoundColors.sage
+// safeAndSoundColors.blush
+// safeAndSoundColors.gold
+// safeAndSoundColors.ivory
+// safeAndSoundColors.dusk
+// safeAndSoundColors.moonlight
+
+// darkOrbColors.deepSage
+// darkOrbColors.rosewood
+// darkOrbColors.amberSmoke
+// darkOrbColors.lunarTaupe
+// darkOrbColors.nightOlive
+
+/////////////////////////////////////
+
+	// Pull in motion.js  	
+	import { animate, hover } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
+      
+	window.addEventListener('DOMContentLoaded', () => { // Ensure DOM populated
+ 
+	//*********************************************************/
+	//**************** PAGE HEADER SECTION ********************/	
+	//*********************************************************/
+
+	//////////////// HEADER BUTTON ANIMATIONS ////////////// 
+		
+	let headerButtonElements = document.getElementsByClassName('btn btn--border theme-btn--primary-inverse sqs-button-element--primary'); 
+
+		// On load */
+
+		// On hover */
+
+		// Button hover glow
+		for (let i = 0; i < headerButtonElements.length; i++) 
+    	{  
+			let button = headerButtonElements[i];
+
+			// Mouse enter / leave event listeners
+			// Animate box-shadow and scale
+
+			button.addEventListener("mouseenter", () => {
+				animate(button, 
+					{ boxShadow: [
+						"0 0 0px rgba(255, 215, 0, 0)",
+						"0 0 20px rgba(255, 215, 0, 0.6)",
+						"0 0 40px rgba(255, 215, 0, 0.8)"
+					],
+					scale: [1, 1.05]
+					},
+					{ duration: 0.6, easing: "ease-out" }
+				);
+			});
+
+			button.addEventListener("mouseleave", () => {
+				animate(button, 
+					{ boxShadow: [
+						"0 0 40px rgba(255, 215, 0, 0.8)",
+						"0 0 10px rgba(255, 215, 0, 0.3)",
+						"0 0 0px rgba(255, 215, 0, 0)"
+					],
+					scale: [1.05, 1]
+					},
+					{ duration: 0.5, easing: "ease-in" }
+				);
+			});
+		}
+
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+		// etc...
+
+	///////////////////////////////////////////////////////
+
+	//////////////// LOGO ANIMATIONS ////////////////// 
+		
+		// Page header logo element - "SnS Logo"
+		// Hover listener - select by class - iterate on array    
+		let headerLogoElements = document.getElementsByClassName('header-title-logo'); 
+
+		// On load */
+		
+		for (let i = 0; i < headerLogoElements.length; i++) 
+		{  
+			hover(
+				headerLogoElements[i],
+				() => {
+					console.log("Logo hovered! index:" + i)
+					// Hover animation code here
+				animate(
+						// SS block ID
+						headerLogoElements[i],
+						{  }, // Target properties and values
+						{  } // Animation options
+					); 
+				
+					return (endEvent) => {
+					console.log("hover logo end")
+					animate(
+						// SS block ID
+						headerLogoElements[i],
+						{  }, // Target properties and values
+						{  } // Animation options
+					);
+				}
+				}
+			);   
+		} // End for loop 
+	
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+
+		// etc...
+
+	////////////////////////////////////////////////////
+
+	//////////////// NAVLINK ANIMATIONS ////////////////// 
+		
+		// Page Header link elements - "About, Coaching Serices, etc.."
+		// Hover listener - select by class - iterate on array
+		let headerLinkElements = document.getElementsByClassName('header-nav-item--collection'); 
+
+		// On load */
+	
+		// On hover */
+	
+		console.log(headerLinkElements);   
+		
+		for (let i = 0; i < headerLinkElements.length; i++) 
+		{  
+			hover(
+				headerLinkElements[i],
+				() => {
+					console.log("Header link hovered! index:" + i)
+					// Hover animation code here
+				animate(
+						// SS block ID
+						headerLinkElements[i],
+						{  }, // Target properties and values
+						{  } // Animation options
+					); 
+				
+					return (endEvent) => {
+						console.log("hover end")
+						animate(
+							// SS block ID
+							headerLinkElements[i],
+							{  }, // Target properties and values
+							{  } // Animation options
+						);
+					}
+				}
+			);   
+		} // End array iterator for loop
+
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+
+		// etc...
+
+	//////////////////////////////////////////////////////
+
+	//*********************************************************/
+
+	//////////////// BANNER ANIMATIONS ////////////////// 
+		
+		// On load */
+			
+		// Banner element - "Come Home to Yourself"
+		// Simple timer-driven animation 
+		animate(
+			'#block-c1ee579b85b57ee0df42',  // SS block ID
+			{ x: 100, opacity: 0 }, 		// Target properties and values
+			{ duration: 1 }                 // Animation options
+		);
+
+		// On hover */
+	
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+
+		// etc...
+
+	//////////////////////////////////////////////////////
+
+	//*********************************************************/
+	//**************** INFOGRAPHICS SECTION *******************/	
+	//*********************************************************/
+
+	//////////////// INFOGRAPHIC 1 ANIMATIONS ////////////////// 
+		
+		// On load */
+
+		///// GIRL IMAGE /////
+		// Slight pulse effect
+		animate(
+			'#block-yui_3_17_2_1_1759758992535_4183',  // SS block ID
+			{ scale: [1, 1.2, 1] },  // Infinite Pulse effect
+			{ duration: 15, repeat: Infinity, easing: "ease-in-out" } // Animation options
+		);
+			
+		///// Banner element - "Do You Feel Stuck?" /////
+		// Pulse effect
+		animate(
+			'#block-yui_3_17_2_1_1759758992535_1815',  // SS block ID
+			{ scale: [1, 1.2, 1] },  // Infinite Pulse effect
+			{ duration: 15, repeat: Infinity, easing: "ease-in-out" } // Animation options
+		);
+		// Pulse effect
+		animate(
+			'#block-yui_3_17_2_1_1759758992535_1815',  // SS block ID
+			{ x: [40, -40] },  // Infinite Pulse effect
+			{ duration: 10, repeat: Infinity, easing: "ease-in-out" } // Animation options
+		);
+		// Pulse effect
+		animate(
+			'#block-yui_3_17_2_1_1759758992535_1815',  // SS block ID
+			{ opacity: [1, 0.6] },  // Infinite Pulse effect
+			{ duration: 12, repeat: Infinity, easing: "ease-in-out" } // Animation options
+		);
+		// Pulse effect
+		animate(
+			'#block-yui_3_17_2_1_1759758992535_1815',  // SS block ID
+			{ scale: [1, 1.2, 1] },  // Infinite Pulse effect
+			{ duration: 15, repeat: Infinity, easing: "ease-in-out" } // Animation options
+		);
+
+		// On hover */
+
+		// H1 element - "Interactive Infographics"
+		// Hover listener - select by block id
+		hover(
+			document.getElementById("block-c6be8a53cdd430489bc6"),
+			() => {
+					console.log("my-id hovered!");
+					animate(
+					// SS block ID
+					'#block-c6be8a53cdd430489bc6',
+					{ scale: 1.3, opacity: 0.7, x: 200 }, // Target properties and values
+					{ duration: 0.5 } // Animation options
+				); 
+			
+				return (endEvent) => {
+					console.log("hover end")
+					animate(
+						// SS block ID
+						'#block-c6be8a53cdd430489bc6',
+						{ scale: 1.0, opacity: 1, x: 0 }, // Target properties and values
+						{ duration: 0.5 } // Animation options
+					); 
+				}
+			}
+		)
+
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+
+		// etc...
+
+	/////////////////////////////////////////////////////////////
+
+	//////////////// INFOGRAPHIC 2 ANIMATIONS ////////////////// 
+		
+		// On load */
+			
+		// Banner element - "Come Home to Yourself"
+		// Simple timer-driven animation 
+
+		// On hover */
+
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+
+		// etc...
+
+	/////////////////////////////////////////////////////////////
+
+	//////////////// INFOGRAPHIC 3 ANIMATIONS ////////////////// 
+		
+		// On load */
+			
+		// Banner element - "Come Home to Yourself"
+		// Simple timer-driven animation 
+
+		// On hover */
+	
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+
+		// etc...
+
+	/////////////////////////////////////////////////////////////
+
+	//////////////// INFOGRAPHIC 4 ANIMATIONS ////////////////// 
+		
+		// On load */
+			
+		// Banner element - "Come Home to Yourself"
+		// Simple timer-driven animation 
+
+		// On hover */
+	
+		// On scroll */
+
+		// In view */
+
+		// Press */
+
+		// On Resize */
+
+
+		// etc...
+
+	/////////////////////////////////////////////////////////////
+});  
+
+// End custom code - DOM render check
+ 
+//////////////// SAMPLE ANIMATIONS ////////////////// 
+     
+	// On load */
+		
+	// Banner element - "Come Home to Yourself"
+	// Simple timer-driven animation 
+
+	// On hover */
+	
+	// On scroll */
+
+	// In view */
+
+	// Press */
+
+	// On Resize */
+
+
+	// etc...
+
+///////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////
+// ************* BACKGROUND ANIMATIONS ****************** */
+////////////////////////////////////////////////////////////
+
+  // ---- Config ----
+  const BLOB_CONFIG = {
+    count: 5, // number of blobs
+    colors: [
+      	darkOrbColors.deepSage,
+    	darkOrbColors.rosewood,
+    	darkOrbColors.amberSmoke,
+    	darkOrbColors.lunarTaupe,
+    	darkOrbColors.nightOlive
+    ],
+    minDuration: 14,
+    maxDuration: 24,
+    maxOffset: 180,    // how far blobs wander from start
+    sizes: [32, 38, 44, 50, 28] // vmin sizes to give variety (these are percentages of viewport)
+  };
+
+  // ---- Create container ----
+  let container = document.getElementById("ethereal-bg");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "ethereal-bg";
+    const siteWrapper = document.querySelector('.sqs-site-wrapper, .site-wrapper, #siteWrapper');
+if (siteWrapper) siteWrapper.prepend(container);
+else document.body.prepend(container);
+  }
+
+  // Utility: random value in [a,b)
+  const rnd = (a,b) => Math.random()*(b-a)+a;
+
+  // Create blobs
+  for (let i = 0; i < BLOB_CONFIG.count; i++) {
+    const blob = document.createElement("div");
+    blob.className = "ethereal-blob";
+
+    // color cycle (if fewer colors than count)
+    const color = BLOB_CONFIG.colors[i % BLOB_CONFIG.colors.length];
+    blob.style.background = `radial-gradient(circle at 30% 30%, ${color}, transparent 40%)`;
+
+    // random starting position within viewport (but leaving some margin)
+    const startX = rnd(window.innerWidth * 0.1, window.innerWidth * 0.9);
+    const startY = rnd(window.innerHeight * 0.05, window.innerHeight * 0.95);
+
+    // size variation — convert vmin to px by using viewport smaller dimension
+    const vmin = Math.min(window.innerWidth, window.innerHeight);
+    const sizeV = BLOB_CONFIG.sizes[i % BLOB_CONFIG.sizes.length] || 38; // default vmin
+    const sizePx = (sizeV / 100) * vmin;
+    blob.style.width = `${sizePx}px`;
+    blob.style.height = `${sizePx}px`;
+
+    // position
+    blob.style.left = `${startX - sizePx / 2}px`;
+    blob.style.top  = `${startY - sizePx / 2}px`;
+
+    container.appendChild(blob);
+
+    // Build smooth, looping motion with subtle scale & blur changes
+    const dur = rnd(BLOB_CONFIG.minDuration, BLOB_CONFIG.maxDuration);
+
+    // generate some offset points to create an organic path
+    const offsets = Array.from({length:5}).map(() => {
+      return {
+        x: startX + rnd(-BLOB_CONFIG.maxOffset, BLOB_CONFIG.maxOffset),
+        y: startY + rnd(-BLOB_CONFIG.maxOffset, BLOB_CONFIG.maxOffset),
+        s: rnd(0.85, 1.15),
+        o: rnd(0.4, 1),
+        b: rnd(30, 90)
+      };
+    });
+
+    // create key arrays for motion one
+    const xs = offsets.map(p => p.x - sizePx/2);
+    xs.unshift(startX - sizePx/2);
+    xs.push(startX - sizePx/2);
+
+    const ys = offsets.map(p => p.y - sizePx/2);
+    ys.unshift(startY - sizePx/2);
+    ys.push(startY - sizePx/2);
+
+    const scales = offsets.map(p => p.s);
+    scales.unshift(1);
+    scales.push(1);
+
+    const opacities = offsets.map(p => p.o);
+    opacities.unshift(0.8);
+    opacities.push(0.8);
+
+    const blurs = offsets.map(p => `blur(${p.b}px) brightness(1.05)`);
+    blurs.unshift("blur(40px) brightness(1)");
+    blurs.push("blur(40px) brightness(1)");
+
+    // Run infinite animation (smooth alternate loop)
+    animate(blob, {
+      left: xs,
+      top: ys,
+      scale: scales,
+      opacity: opacities,
+      filter: blurs
+    }, {
+      duration: dur,
+      repeat: Infinity,
+      direction: "alternate",
+      easing: "ease-in-out",
+      delay: i * 0.6
+    });
+  }
+
+  // Optional: subtle parallax on mouse move (comment out if you don't want interaction)
+  (function enableCursorParallax() {
+    const strength = 0.02; // smaller = subtler
+    let lastX = window.innerWidth / 2;
+    let lastY = window.innerHeight / 2;
+
+    window.addEventListener("mousemove", (e) => {
+      const cx = e.clientX;
+      const cy = e.clientY;
+      const dx = (cx - lastX) * strength;
+      const dy = (cy - lastY) * strength;
+      lastX = cx;
+      lastY = cy;
+
+      // nudge each blob slightly based on its index for layered parallax
+      container.querySelectorAll(".ethereal-blob").forEach((b, idx) => {
+        const depth = (idx + 1) / BLOB_CONFIG.count; // 0..1
+        // subtle transform (do not override animation transforms — use translate)
+        b.style.transform = `translate(${dx * depth}px, ${dy * depth}px)`;
+        // remove transform smoothly after a short timeout so it doesn't stack
+        clearTimeout(b._parallaxTimeout);
+        b._parallaxTimeout = setTimeout(() => b.style.transform = "", 120);
+      });
+    });
+  })();
+
+////////////////////////////////////////////////////////////
+// ****************************************************** */
+////////////////////////////////////////////////////////////
+
+</script>
