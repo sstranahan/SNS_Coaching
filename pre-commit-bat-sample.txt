@@ -1,0 +1,32 @@
+@echo off
+REM === Safe & Sound Coaching Co. | Pre-commit Version Updater (Windows CMD) ===
+
+REM Get short commit hash and current date
+FOR /F "tokens=*" %%i IN ('git rev-parse --short HEAD 2^>nul') DO SET HASH=%%i
+FOR /F "tokens=1 delims= " %%a IN ('date /t') DO SET DATE=%%a
+
+REM List of target files
+set FILES=ethereal-bg.css ethereal-bg.js
+
+FOR %%F IN (%FILES%) DO (
+    IF EXIST %%F (
+        echo Updating version header in %%F...
+
+        REM Create a temp file
+        set TMP_FILE=%%F.tmp
+
+        REM Write new header
+        echo /* === Safe & Sound Coaching Co. | snsCoaching | vAUTO ===> "%TMP_FILE%"
+        echo    Commit: %HASH% ^| Updated: %DATE%>> "%TMP_FILE%"
+        echo =============================================================== */>> "%TMP_FILE%"
+
+        REM Append original file contents below the new header
+        type "%%F" >> "%TMP_FILE%"
+
+        REM Replace original file
+        move /Y "%TMP_FILE%" "%%F" >nul
+        echo ✅ %%F updated successfully.
+    )
+)
+
+exit 0

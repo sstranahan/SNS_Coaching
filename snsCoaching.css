@@ -1,3 +1,22 @@
+/* === Safe & Sound Coaching Co. | snsCoaching === */
+
+/*********************************************************/
+/* ////////////// SAFE & SOUND COACHING //////////////// */
+/*********************************************************/
+
+/* CSS Styles for snsCoaching site */
+
+
+/* // https://www.safeandsoundcoachingco.com */
+/* // PW: Anj*******% */
+
+/* // Stephen Stranahan
+// October 2025 */
+ 
+ 
+ /* === Safe & Sound Coaching Co. | Global | CSS === */
+  
+  
   /* Some global color constants */
   :root {
   --champagne: rgba(244, 234, 225, 0.9);
@@ -17,52 +36,65 @@
 }
   
   
-    /* Container sits behind site content and covers full viewport */
-  #ethereal-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;              /* keep it behind everything */
-    pointer-events: none;     /* don't block clicks */
-    overflow: hidden;
-    background: radial-gradient(circle at 20% 20%, var(--ivoryBG) 0%, var(--champagneBG) 60%);
-  }
+ /* === Safe & Sound Coaching Co. | Background | CSS === */
 
-  .ethereal-blob {
-    position: absolute;
-    width: var(--blob-size, 38vmax);  /* responsive default */
-    height: var(--blob-size, 38vmax);
-    border-radius: 50%;
-    mix-blend-mode: multiply;   /* luminous blending */
-    filter: blur(60px);
-    will-change: transform, opacity, filter, left, top;
-    opacity: 0.8;
-  }
+/* Ensure site containers are transparent so animation shows through */
+.sqs-site-wrapper,
+.site-wrapper,
+.site-container,
+#siteWrapper {
+  background: transparent !important;
+}
 
-  /* Optional subtle vignette overlay for depth */
-  #ethereal-bg::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, var(--sageBG) 40%, var(--ivoryBGHalfAlpha) 100%);
-    pointer-events:none;
-  }
+/* Fullscreen background container */
+#ethereal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: transparent !important;
+}
 
-  /* Make sure hero blocks with background are still visible on small screens */
-  @media (max-width: 640px) {
-    :root { --blob-size: 60vmax; } /* larger so it still feels full on mobile */
-  }
+/* Orbs styling */
+.ethereal-blob {
+  position: absolute;
+  width: 38vmax;
+  height: 38vmax;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.9
+  mix-blend-mode: multiply; /* looks great on light backgrounds */
+  will-change: transform, opacity, filter;
+}
 
-  .header-nav:before {
-    content: "Your Custom Header Text"; /* Replace with your text */
-    display: block; /* Or inline-block, depending on layout */
-    position: relative; /* Or absolute for precise positioning */
-    top: -50px; /* Adjust as needed for vertical placement */
-    /* Add other styling properties like font-size, color, font-family, etc. */
-    font-size: calc((var(--site-navigation-font-font-size-value) - 1) * 1.2vw + 1rem);
-    color: var(--gold);
-    text-align: center;
-  }
+/* Phrase wrapper (micro animation) */
+#micro-phrase-wrapper {
+  position: absolute;
+  top: 5%; /* adjust for your header height */
+  width: 100%;
+  text-align: left;
+  font-family: 'Quicksand', 'Poppins', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  letter-spacing: 0.04em;
+  color: rgba(87, 104, 87, 0.75); /* deep sage tone */
+  z-index: 2; /* above orbs, below nav text */
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
 
-  
+#micro-phrase-wrapper .phrase {
+  display: block;
+  opacity: 0;
+  transition: opacity 1s ease;
+  margin-bottom: 0.4em;
+}
 
+/* Optional: subtle text glow */
+#micro-phrase-wrapper .phrase.glow {
+  text-shadow: 0 0 10px rgba(182, 200, 174, 0.4);
+}
 
+.ethereal-blob { z-index: 1; }
+#micro-phrase-wrapper { z-index: 2; }
+#ethereal-bg { z-index: -1; }

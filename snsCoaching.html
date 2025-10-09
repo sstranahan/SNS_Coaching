@@ -1,3 +1,5 @@
+// === Safe & Sound Coaching Co. | Ethereal Background ===
+
 <script type="module" defer>
 
 ///******************************************************/
@@ -26,13 +28,15 @@ const safeAndSoundColors = {
   moonlight: "rgba(219, 216, 210, 0.7)",  // ethereal glow layer
 };	
 
-const darkOrbColors = {
-  deepSage: "rgba(87, 104, 87, 0.55)",       // earthy green shadow, grounding
-  rosewood: "rgba(120, 77, 77, 0.5)",        // warm blush depth, ties to heart energy
-  amberSmoke: "rgba(130, 102, 50, 0.45)",    // muted golden brown glow, subtle warmth
-  lunarTaupe: "rgba(92, 85, 77, 0.5)",       // smoky neutral, brings balance
-  nightOlive: "rgba(68, 78, 70, 0.55)"       // dark sage tone with a mystical undertone
-};
+// --- Color Palette (softened darker orbs for light theme) ---
+const darkOrbColors = [
+  "rgba(111, 126, 111, 0.6)",
+  "rgba(148, 103, 103, 0.55)",
+  "rgba(166, 137, 87, 0.5)",
+  "rgba(124, 118, 110, 0.5)",
+  "rgba(98, 108, 98, 0.6)"
+];
+
 
 // safeAndSoundColors.champagne
 // safeAndSoundColors.blush
@@ -49,12 +53,19 @@ const darkOrbColors = {
 // darkOrbColors.lunarTaupe
 // darkOrbColors.nightOlive
 
+// === Safe & Sound Coaching Co. | Landing Page Animations | JS ===
+
 /////////////////////////////////////
 
-	// Pull in motion.js  	
-	import { animate, hover, timeline } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
+	// Pull in motion.js - latest version
+	import { animate, hover } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
       
 	window.addEventListener('DOMContentLoaded', () => { // Ensure DOM populated
+
+	if (!window.motion) {
+		console.warn("Motion.js failed to load; background disabled.");
+		return;
+	}		
  
 	//*********************************************************/
 	//**************** PAGE HEADER SECTION ********************/	
@@ -421,177 +432,78 @@ const darkOrbColors = {
 // ************* BACKGROUND ANIMATIONS ****************** */
 ////////////////////////////////////////////////////////////
 
-  // ---- Config ----
-  const BLOB_CONFIG = {
-    count: 5, // number of blobs
-    colors: [
-      	darkOrbColors.deepSage,
-    	darkOrbColors.rosewood,
-    	darkOrbColors.amberSmoke,
-    	darkOrbColors.lunarTaupe,
-    	darkOrbColors.nightOlive
-    ],
-    minDuration: 14,
-    maxDuration: 24,
-    maxOffset: 180,    // how far blobs wander from start
-    sizes: [32, 38, 44, 50, 28] // vmin sizes to give variety (these are percentages of viewport)
-  };
+// === Safe & Sound Coaching Co. | Ethereal Background | JS ===
 
-  // ---- Create container ----
-  let container = document.getElementById("ethereal-bg");
-  if (!container) {
-    container = document.createElement("div");
-    container.id = "ethereal-bg";
-    const siteWrapper = document.querySelector('.sqs-site-wrapper, .site-wrapper, #siteWrapper');
-if (siteWrapper) siteWrapper.prepend(container);
-else document.body.prepend(container);
-  }
+// --- Create background container if not present ---
+let container = document.getElementById("ethereal-bg");
+if (!container) {
+  container = document.createElement("div");
+  container.id = "ethereal-bg";
+  const siteWrapper = document.querySelector(".sqs-site-wrapper, .site-wrapper, #siteWrapper");
+  if (siteWrapper) siteWrapper.prepend(container);
+  else document.body.prepend(container);
+}
 
-  // Utility: random value in [a,b)
-  const rnd = (a,b) => Math.random()*(b-a)+a;
+// --- Create and animate orbs ---
+function createBlob(color, delay) {
+  const blob = document.createElement("div");
+  blob.classList.add("ethereal-blob");
+  blob.style.background = color;
+  container.appendChild(blob);
 
-  // Create blobs
-  for (let i = 0; i < BLOB_CONFIG.count; i++) {
-    const blob = document.createElement("div");
-    blob.className = "ethereal-blob";
+  const startX = Math.random() * (window.innerWidth * 0.8) + window.innerWidth * 0.1;
+  const startY = Math.random() * (window.innerHeight * 0.8) + window.innerHeight * 0.1;
+  blob.style.left = `${startX}px`;
+  blob.style.top = `${startY}px`;
 
-    // color cycle (if fewer colors than count)
-    const color = BLOB_CONFIG.colors[i % BLOB_CONFIG.colors.length];
-    blob.style.background = `radial-gradient(circle at 30% 30%, ${color}, transparent 40%)`;
+  animate(blob, {
+	x: [startX, startX + 160, startX - 140, startX + 100, startX],
+	y: [startY, startY - 120, startY + 180, startY - 80, startY],
+	scale: [1, 1.15, 0.9, 1.1, 1],
+	opacity: [0.65, 0.9, 0.7, 0.85, 0.65],
+	filter: [
+		"blur(50px) brightness(1)",
+		"blur(70px) brightness(1.2)",
+		"blur(60px) brightness(0.9)",
+		"blur(80px) brightness(1.1)",
+		"blur(50px) brightness(1)"
+	]
+	}, {
+		duration: 24 + Math.random() * 6,
+		repeat: Infinity,
+		easing: "ease-in-out",
+		direction: "alternate",
+		delay
+		});
+	}
 
-    // random starting position within viewport (but leaving some margin)
-    const startX = rnd(window.innerWidth * 0.1, window.innerWidth * 0.9);
-    const startY = rnd(window.innerHeight * 0.05, window.innerHeight * 0.95);
+// Create all orbs
+darkOrbColors.forEach((c, i) => createBlob(c, i * 2));
 
-    // size variation — convert vmin to px by using viewport smaller dimension
-    const vmin = Math.min(window.innerWidth, window.innerHeight);
-    const sizeV = BLOB_CONFIG.sizes[i % BLOB_CONFIG.sizes.length] || 38; // default vmin
-    const sizePx = (sizeV / 100) * vmin;
-    blob.style.width = `${sizePx}px`;
-    blob.style.height = `${sizePx}px`;
+// --- Add micro-phrase text animation ---
+const textWrapper = document.createElement("div");
+textWrapper.id = "micro-phrase-wrapper";
+textWrapper.innerHTML = `
+  <span class="phrase glow">Trauma-aware</span>
+  <span class="phrase glow">Psychology-informed</span>
+  <span class="phrase glow">Integrative</span>
+`;
+container.appendChild(textWrapper);
 
-    // position
-    blob.style.left = `${startX - sizePx / 2}px`;
-    blob.style.top  = `${startY - sizePx / 2}px`;
+const phrases = textWrapper.querySelectorAll(".phrase");
+phrases.forEach((p) => (p.style.opacity = 0));
 
-    container.appendChild(blob);
-
-    // Build smooth, looping motion with subtle scale & blur changes
-    const dur = rnd(BLOB_CONFIG.minDuration, BLOB_CONFIG.maxDuration);
-
-    // generate some offset points to create an organic path
-    const offsets = Array.from({length:5}).map(() => {
-      return {
-        x: startX + rnd(-BLOB_CONFIG.maxOffset, BLOB_CONFIG.maxOffset),
-        y: startY + rnd(-BLOB_CONFIG.maxOffset, BLOB_CONFIG.maxOffset),
-        s: rnd(0.85, 1.15),
-        o: rnd(0.4, 1),
-        b: rnd(30, 90)
-      };
-    });
-
-    // create key arrays for motion one
-    const xs = offsets.map(p => p.x - sizePx/2);
-    xs.unshift(startX - sizePx/2);
-    xs.push(startX - sizePx/2);
-
-    const ys = offsets.map(p => p.y - sizePx/2);
-    ys.unshift(startY - sizePx/2);
-    ys.push(startY - sizePx/2);
-
-    const scales = offsets.map(p => p.s);
-    scales.unshift(1);
-    scales.push(1);
-
-    const opacities = offsets.map(p => p.o);
-    opacities.unshift(0.8);
-    opacities.push(0.8);
-
-    const blurs = offsets.map(p => `blur(${p.b}px) brightness(1.05)`);
-    blurs.unshift("blur(40px) brightness(1)");
-    blurs.push("blur(40px) brightness(1)");
-
-    // Run infinite animation (smooth alternate loop)
-    animate(blob, {
-      left: xs,
-      top: ys,
-      scale: scales,
-      opacity: opacities,
-      filter: blurs
-    }, {
-      duration: dur,
-      repeat: Infinity,
-      direction: "alternate",
-      easing: "ease-in-out",
-      delay: i * 0.6
-    });
-  }
-
-  // Optional: subtle parallax on mouse move (comment out if you don't want interaction)
-  (function enableCursorParallax() {
-    const strength = 0.02; // smaller = subtler
-    let lastX = window.innerWidth / 2;
-    let lastY = window.innerHeight / 2;
-
-    window.addEventListener("mousemove", (e) => {
-      const cx = e.clientX;
-      const cy = e.clientY;
-      const dx = (cx - lastX) * strength;
-      const dy = (cy - lastY) * strength;
-      lastX = cx;
-      lastY = cy;
-
-      // nudge each blob slightly based on its index for layered parallax
-      container.querySelectorAll(".ethereal-blob").forEach((b, idx) => {
-        const depth = (idx + 1) / BLOB_CONFIG.count; // 0..1
-        // subtle transform (do not override animation transforms — use translate)
-        b.style.transform = `translate(${dx * depth}px, ${dy * depth}px)`;
-        // remove transform smoothly after a short timeout so it doesn't stack
-        clearTimeout(b._parallaxTimeout);
-        b._parallaxTimeout = setTimeout(() => b.style.transform = "", 120);
-      });
-    });
-  })();
-
-////////////////////////////////////////////////////////////
-// ****************************************************** */
-////////////////////////////////////////////////////////////
-
-
-/////////////// HEADER ANIMATION - PHRASE ROTATOR ///////////////
-  // Reference existing background container
-  const container = document.getElementById("ethereal-bg") || (() => {
-    const c = document.createElement("div");
-    c.id = "ethereal-bg";
-    document.body.prepend(c);
-    return c;
-  })();
-
-  // --- Create text wrapper ---
-  const textWrapper = document.createElement("div");
-  textWrapper.id = "micro-phrase-wrapper";
-  textWrapper.innerHTML = `
-    <span class="phrase">Trauma-aware</span>
-    <span class="phrase">Psychology-informed</span>
-    <span class="phrase">Integrative</span>
-  `;
-  container.appendChild(textWrapper);
-
-  // --- Animate word-by-word fade cycle ---
-  const phrases = textWrapper.querySelectorAll(".phrase");
-  phrases.forEach((p, i) => p.style.opacity = 0);
-
-  async function cyclePhrases() {
-    while (true) {
-      for (let i = 0; i < phrases.length; i++) {
-        const el = phrases[i];
-        await animate(el, { opacity: [0, 1] }, { duration: 1.2, easing: "ease-out" }).finished;
-        await new Promise(r => setTimeout(r, 2200)); // hold
-        await animate(el, { opacity: [1, 0] }, { duration: 1.2, easing: "ease-in" }).finished;
-      }
+async function cyclePhrases() {
+  while (true) {
+    for (let i = 0; i < phrases.length; i++) {
+      const el = phrases[i];
+      await animate(el, { opacity: [0, 1] }, { duration: 1.2, easing: "ease-out" }).finished;
+      await new Promise((r) => setTimeout(r, 2200));
+      await animate(el, { opacity: [1, 0] }, { duration: 1.2, easing: "ease-in" }).finished;
     }
   }
-  cyclePhrases();
+}
+cyclePhrases();
 /////////////////////////////////////////////////////////////////
 
 </script>
