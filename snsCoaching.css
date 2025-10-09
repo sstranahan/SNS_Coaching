@@ -52,5 +52,17 @@
     :root { --blob-size: 60vmax; } /* larger so it still feels full on mobile */
   }
 
+  .header-nav:before {
+    content: "Your Custom Header Text"; /* Replace with your text */
+    display: block; /* Or inline-block, depending on layout */
+    position: relative; /* Or absolute for precise positioning */
+    top: -50px; /* Adjust as needed for vertical placement */
+    /* Add other styling properties like font-size, color, font-family, etc. */
+    font-size: calc((var(--site-navigation-font-font-size-value) - 1) * 1.2vw + 1rem);
+    color: var(--gold);
+    text-align: center;
+  }
+
+  
 
 

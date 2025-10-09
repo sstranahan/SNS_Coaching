@@ -52,7 +52,7 @@ const darkOrbColors = {
 /////////////////////////////////////
 
 	// Pull in motion.js  	
-	import { animate, hover } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
+	import { animate, hover, timeline } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
       
 	window.addEventListener('DOMContentLoaded', () => { // Ensure DOM populated
  
@@ -556,5 +556,42 @@ else document.body.prepend(container);
 ////////////////////////////////////////////////////////////
 // ****************************************************** */
 ////////////////////////////////////////////////////////////
+
+
+/////////////// HEADER ANIMATION - PHRASE ROTATOR ///////////////
+  // Reference existing background container
+  const container = document.getElementById("ethereal-bg") || (() => {
+    const c = document.createElement("div");
+    c.id = "ethereal-bg";
+    document.body.prepend(c);
+    return c;
+  })();
+
+  // --- Create text wrapper ---
+  const textWrapper = document.createElement("div");
+  textWrapper.id = "micro-phrase-wrapper";
+  textWrapper.innerHTML = `
+    <span class="phrase">Trauma-aware</span>
+    <span class="phrase">Psychology-informed</span>
+    <span class="phrase">Integrative</span>
+  `;
+  container.appendChild(textWrapper);
+
+  // --- Animate word-by-word fade cycle ---
+  const phrases = textWrapper.querySelectorAll(".phrase");
+  phrases.forEach((p, i) => p.style.opacity = 0);
+
+  async function cyclePhrases() {
+    while (true) {
+      for (let i = 0; i < phrases.length; i++) {
+        const el = phrases[i];
+        await animate(el, { opacity: [0, 1] }, { duration: 1.2, easing: "ease-out" }).finished;
+        await new Promise(r => setTimeout(r, 2200)); // hold
+        await animate(el, { opacity: [1, 0] }, { duration: 1.2, easing: "ease-in" }).finished;
+      }
+    }
+  }
+  cyclePhrases();
+/////////////////////////////////////////////////////////////////
 
 </script>

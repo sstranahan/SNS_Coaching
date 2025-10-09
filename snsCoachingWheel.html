@@ -1,0 +1,158 @@
+<!-- 🧭 Safe & Sound Coaching Co. - Responsive "Coaching Compass" -->
+<div style="text-align:center; margin:40px 0;">
+  <h2 style="font-family:'Quicksand',sans-serif; color:#d8c27a; letter-spacing:1px;">Spin the Coaching Compass</h2>
+  <p style="font-style:italic; color:#a9bfa5;">See which insight is calling you today.</p>
+
+  <div id="compass-container" style="position:relative; display:inline-flex; justify-content:center; align-items:center; width:80vw; max-width:320px; aspect-ratio:1/1; overflow:visible;">
+    <canvas id="compass" style="cursor:pointer; width:100%; height:100%;"></canvas>
+
+    <!-- Overlay message box -->
+    <div id="overlay" style="
+      display:none;
+      position:absolute;
+      inset:0;
+      margin:auto;
+      width:80%;
+      height:80%;
+      background:rgba(249,242,232,0.93);
+      color:#d8c27a;
+      border:1px solid #d8c27a;
+      border-radius:12px;
+      padding:20px 25px;
+      text-align:center;
+      font-family:'Quicksand',sans-serif;
+      box-shadow:0 0 25px rgba(216,194,122,0.6);
+      transition:opacity 0.5s ease;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+    ">
+      <p id="message" style="margin-bottom:15px; font-weight:500; font-size:1em; line-height:1.4;"></p>
+      <button id="spin-again" style="
+        background:transparent;
+        border:1px solid #a9bfa5;
+        color:#a9bfa5;
+        border-radius:6px;
+        padding:6px 12px;
+        cursor:pointer;
+        font-size:0.9em;
+        transition:all 0.3s ease;
+      " onmouseover="this.style.background='#a9bfa5'; this.style.color='white';"
+         onmouseout="this.style.background='transparent'; this.style.color='#a9bfa5';">
+        Spin Again
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// 🎨 Setup
+const canvas = document.getElementById('compass');
+const ctx = canvas.getContext('2d');
+
+const slices = [
+  { label: 'Self-Discovery', color: 'rgba(216,194,122,0.35)' },
+  { label: 'Boundaries', color: 'rgba(169,191,165,0.35)' },
+  { label: 'Confidence', color: 'rgba(216,194,122,0.35)' },
+  { label: 'Purpose', color: 'rgba(169,191,165,0.35)' },
+  { label: 'Change', color: 'rgba(216,194,122,0.35)' }
+];
+
+const messages = {
+  'Self-Discovery': 'Find your rhythm again — not who you “should” be, but who you are.',
+  'Boundaries': 'Learn to say no with love and yes with intention.',
+  'Confidence': 'Build the kind that doesn’t need proving.',
+  'Purpose': 'Get clear on what matters and start living like it.',
+  'Change': 'Grow through it instead of gripping it.'
+};
+
+// ✨ Draw Compass
+function drawCompass(rotation = 0) {
+  const radius = canvas.width / 2;
+  const step = (2 * Math.PI) / slices.length;
+  ctx.clearRect(-radius, -radius, canvas.width, canvas.height);
+
+  for (let i = 0; i < slices.length; i++) {
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, radius, step * i + rotation, step * (i + 1) + rotation);
+    ctx.fillStyle = slices[i].color;
+    ctx.fill();
+
+    ctx.save();
+    ctx.rotate(step * i + step / 2 + rotation);
+    ctx.fillStyle = '#d8c27a';
+    ctx.font = `${Math.max(12, radius / 10)}px Quicksand, sans-serif`;
+    ctx.textAlign = 'right';
+    ctx.fillText(slices[i].label, radius - 10, 5);
+    ctx.restore();
+  }
+
+  // center dot
+  ctx.beginPath();
+  ctx.arc(0, 0, radius * 0.03, 0, 2 * Math.PI);
+  ctx.fillStyle = '#a9bfa5';
+  ctx.fill();
+}
+
+// ⚙️ Resize logic for responsiveness
+function resizeCanvas() {
+  const container = document.getElementById('compass-container');
+  const size = container.offsetWidth;
+  canvas.width = size;
+  canvas.height = size;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.translate(size / 2, size / 2);
+  drawCompass();
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// 🌀 Spin animation
+let spinning = false;
+canvas.addEventListener('click', () => {
+  if (spinning) return;
+  spinning = true;
+
+  let rotation = 0;
+  const spinTime = 2500;
+  const spinSpeed = Math.random() * 10 + 12;
+  const randomExtra = Math.random() * 2 * Math.PI;
+  const start = performance.now();
+
+  function animate(now) {
+    const elapsed = now - start;
+    if (elapsed < spinTime) {
+      const ease = 1 - Math.pow(1 - elapsed / spinTime, 3);
+      rotation = ease * (spinSpeed * Math.PI + randomExtra);
+      drawCompass(rotation);
+      requestAnimationFrame(animate);
+    } else {
+      spinning = false;
+      const sliceIndex = Math.floor(((2 * Math.PI - (rotation % (2 * Math.PI))) / (2 * Math.PI)) * slices.length) % slices.length;
+      const selected = slices[sliceIndex].label;
+      showMessage(selected);
+    }
+  }
+  requestAnimationFrame(animate);
+});
+
+// 💬 Overlay message logic
+function showMessage(label) {
+  const overlay = document.getElementById('overlay');
+  const message = document.getElementById('message');
+  message.textContent = messages[label];
+  overlay.style.display = 'flex';
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.style.opacity = '1', 10);
+}
+
+document.getElementById('spin-again').addEventListener('click', () => {
+  const overlay = document.getElementById('overlay');
+  overlay.style.opacity = '0';
+  setTimeout(() => {
+    overlay.style.display = 'none';
+  }, 400);
+});
+</script>
